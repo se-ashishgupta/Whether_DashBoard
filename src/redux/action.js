@@ -1,4 +1,3 @@
-const API_KEY = 'bfa18c3f5697969887b9a5583d0a02bc';
 import axios from "axios";
 
 export const getWhetherData = (city = 'Delhi', units = 'metric') => async (dispatch) => {

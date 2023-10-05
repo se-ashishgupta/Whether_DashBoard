@@ -41,7 +41,7 @@ const Dashboard = () => {
         }} className='md:h-[100vh] px-4 lg:px-10 xl:px-28 py-10'>
 
             {/* Searching and Switiching Unit  */}
-            <div className='flex items-center justify-around  '>
+            <div className='flex items-center justify-around gap-4 '>
 
                 {/* Searching  */}
                 <form onSubmit={submitHandler} className='w-full'>
@@ -62,7 +62,7 @@ const Dashboard = () => {
                         onClick={unitChangeHandler}
                         className="w-12 h-7 rounded-full peer  peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-black peer-checked:bg-opacity-10 shadow-sm shadow-white"
                     ></div>
-                    <span className="ml-2 text-xl font-medium text-white">
+                    <span className="w-[1rem] ml-2 text-xl font-medium text-white">
                         {unit == 'metric' ? "°C" : "°F"}
                     </span>
                 </label>
