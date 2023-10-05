@@ -11,7 +11,7 @@ const Dashboard = () => {
     const [unit, setUnit] = useState('metric');
     const [enabled, setEnabled] = useState(false);
 
-    const { loading } = useSelector(state => state.whether);
+    const { loading, data } = useSelector(state => state.whether);
 
     const dispatch = useDispatch();
 
@@ -26,12 +26,12 @@ const Dashboard = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(getWhetherData(city, unit));
+        dispatch(getWhetherData(city));
     };
 
     useEffect(() => {
-        dispatch(getWhetherData(city, unit));
-    }, [unit, dispatch]);
+        dispatch(getWhetherData(city));
+    }, [dispatch]);
 
     return (
         <div style={{
@@ -41,11 +41,11 @@ const Dashboard = () => {
         }} className='md:h-[100vh] px-4 lg:px-10 xl:px-28 py-10'>
 
             {/* Searching and Switiching Unit  */}
-            <div className='flex items-center justify-between gap-4'>
+            <div className='flex items-center justify-around  '>
 
                 {/* Searching  */}
                 <form onSubmit={submitHandler} className='w-full'>
-                    <input value={city} className='w-full md:w-2/3 bg-black bg-opacity-20 r px-4 py-2 shadow-sm rounded-lg shadow-white outline-none text-white' checked type="text" id='city' name='city' placeholder='Search...' onChange={(e) => setCity(e.target.value)} />
+                    <input required value={city} className='w-full md:w-2/3 bg-black bg-opacity-20 r px-4 py-2 shadow-sm rounded-lg shadow-white outline-none text-white' checked type="text" id='city' name='city' placeholder='Search...' onChange={(e) => setCity(e.target.value)} />
                 </form>
 
                 {/* Toggle for changing unit   */}
@@ -55,6 +55,7 @@ const Dashboard = () => {
                         className="sr-only peer"
                         checked={enabled}
                         readOnly
+
                     />
 
                     <div
@@ -71,7 +72,16 @@ const Dashboard = () => {
             <div className='h-full py-10 flex flex-col md:flex-row gap-4'>
 
                 {/* Description */}
-                <Description unit={unit} />
+                <div className='bg-black bg-opacity-20 lg:w-[30%] shadow-sm shadow-white rounded-lg p-4 flex flex-col items-center justify-around gap-6'>
+
+                    {
+                        loading ? <Loader /> : <>
+                            <Description unit={unit} data={data} />
+                        </>
+                    }
+
+                </div>
+
 
                 {/* {Details}  */}
                 <div className='h-full flex-1 bg-black bg-opacity-20 shadow-sm shadow-white rounded-lg p-4 flex flex-col gap-1'>
@@ -79,7 +89,7 @@ const Dashboard = () => {
 
                     {
                         loading ? <Loader /> : <>
-                            <Details unit={unit} />
+                            <Details unit={unit} data={data} />
                         </>
                     }
                 </div>

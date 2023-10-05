@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Loader from './Loader';
 
 const Description = ({ unit }) => {
     // Function to get the name of day
@@ -89,43 +88,46 @@ const Description = ({ unit }) => {
     const exactDayTime = getDayTime(exactHour);
 
 
-    const { loading, data, message, error } = useSelector(state => state.whether);
+    const { data } = useSelector(state => state.whether);
 
+
+    // Convert Celsius to Fahrenheit
+    const handleCelsiusChange = (value) => {
+
+        const fahrenheitValue = (value * 9 / 5) + 32;
+
+        return fahrenheitValue.toFixed(2);// Round to 2 decimal places
+    };
 
     return (
-        <div className='bg-black bg-opacity-20 lg:w-[30%] shadow-sm shadow-white rounded-lg p-4 flex flex-col items-center justify-around gap-6'>
 
-            {
+        <>
+            {/* Whether icon  */}
+            <figure className='w-[10rem] -mb-10'>
+                <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="logo" className='w-full h-auto' />
+            </figure>
 
-                loading ? <Loader /> : <>
-                    {/* Whether icon  */}
-                    <figure className='w-[10rem] -mb-10'>
-                        <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="logo" className='w-full h-auto' />
-                    </figure>
+            {/* Whether Details  */}
+            <div className='flex items-center flex-col'>
+                <div className='flex'>
+                    <p className='text-6xl text-yellow-400 font-bold'>{unit == 'metric' ? data.main.temp : handleCelsiusChange(data.main.temp)}</p>
+                    <span className=' text-3xl text-white'>{unit == 'metric' ? "°C" : "°F"}</span>
+                </div>
 
-                    {/* Whether Details  */}
-                    <div className='flex items-center flex-col'>
-                        <div className='flex'>
-                            <p className='text-6xl text-yellow-400 font-bold'>{data.main.temp}</p>
-                            <span className=' text-3xl text-white'>{unit == 'metric' ? "°C" : "°F"}</span>
-                        </div>
+                <p className=' text-[#FF006B] text-xl font-bold'>{data.weather[0].main} </p>
+            </div>
 
-                        <p className=' text-[#FF006B] text-xl font-bold'>{data.weather[0].main}</p>
-                    </div>
+            {/* Date  */}
+            <div className=' text-center text-gray-400'>
+                <p>{`${day}-${exactDMonth}-${exactYear}`}</p>
+                <p>{`${exactDay}, ${exactHour}: ${exactMinute} ${exactHour >= 12 ? "PM" : "AM"}`}</p>
+                <p>{exactDayTime}</p>
+            </div>
 
-                    {/* Date  */}
-                    <div className=' text-center text-gray-400'>
-                        <p>{`${day}-${exactDMonth}-${exactYear}`}</p>
-                        <p>{`${exactDay}, ${exactHour}: ${exactMinute} ${exactHour >= 12 ? "PM" : "AM"}`}</p>
-                        <p>{exactDayTime}</p>
-                    </div>
+            {/* City Name */}
+            <h1 className=' text-4xl text-white  font-extrabold '>{data.name}</h1>
+        </>
 
-                    {/* City Name */}
-                    <h1 className=' text-4xl text-white  font-extrabold '>{data.name}</h1>
-                </>
-            }
-
-        </div>
     );
 };
 

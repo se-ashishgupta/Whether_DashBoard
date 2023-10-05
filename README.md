@@ -1,26 +1,41 @@
-# Whether Dashboard
+# React Weather DashbOard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src="https://user-images.githubusercontent.com/25284536/90274607-2535a000-de76-11ea-9d21-ab8c3e68b3a9.png" width="400"> <
 
-Currently, two official plugins are available:
+Weather App built with React.
+[Live Demo](https://whether-dash-board.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
+**React, JavaScript, Tailwind Redux, React-Icons**
 
-# How to Run a Vite.js Application
+## Features
 
-This guide will walk you through the steps to run a Vite.js application.
+- **Weather forecast for any city or place**
+- **Find user location weather by utilizing GeolocationAPI**
+- **One-click Celcius to Fahrenheit conversion and vice versa**
 
-## Prerequisites
+## Getting Started
 
-Before you begin, make sure you have the following installed on your system:
+First you need an API key from OpenWeatherMap, you can get one by creating an account on their website.
+After you got your API key, create a **.env.local** file at root directory of project, copy the line below to the file and replace YOUR_KEY with your OpenWeatherMap API Key.
 
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [npm](https://www.npmjs.com/) (v7 or higher)
+```
+VITE_WEATHER_API_KEY=YOUR_KEY
+```
 
-## Step 1: Clone the Repository
+Finally clone this repository, install dependencies and run the local server
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/se-ashishgupta/Whether_DashBoard.git
+```
+
+```bash
+cd Whether_DashBoard
+npm install
+npm run dev
+```
+
+## Credits
+
+[OpenWeatherMap](https://openweathermap.org/ 'OpenWeatherMap') (Weather data API)

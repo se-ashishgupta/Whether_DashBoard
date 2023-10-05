@@ -5,84 +5,42 @@ import { MdCompress, MdOutlineWaterDrop } from "react-icons/md";
 import { HiArrowSmDown, HiArrowSmUp } from "react-icons/hi";
 import { FiWind } from "react-icons/fi";
 
-const Details = ({ unit }) => {
-
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    const { loading, data, message, error } = useSelector(state => state.whether);
-
-    const ash = {
-        "coord": {
-            "lon": 77.2167,
-            "lat": 28.6667
-        },
-        "weather": [
-            {
-                "id": 721,
-                "main": "Haze",
-                "description": "haze",
-                "icon": "50d"
-            }
-        ],
-        "base": "stations",
-        "main": {
-            "temp": 34.05,
-            "feels_like": 32.72,
-            "temp_min": 34.05,
-            "temp_max": 34.05,
-            "pressure": 1007,
-            "humidity": 26
-        },
-        "visibility": 4500,
-        "wind": {
-            "speed": 3.6,
-            "deg": 290
-        },
-        "clouds": {
-            "all": 0
-        },
-        "dt": 1696497721,
-        "sys": {
-            "type": 1,
-            "id": 9165,
-            "country": "IN",
-            "sunrise": 1696466745,
-            "sunset": 1696509210
-        },
-        "timezone": 19800,
-        "id": 1273294,
-        "name": "Delhi",
-        "cod": 200
-    };
-
+const Details = ({ unit, data }) => {
 
     const { main: { feels_like, temp_min, temp_max, pressure, humidity }, wind: { speed } } = data;
 
+    // Convert Celsius to Fahrenheit
+    const handleCelsiusChange = (value) => {
+
+        const fahrenheitValue = (value * 9 / 5) + 32;
+
+        return fahrenheitValue.toFixed(2);// Round to 2 decimal places
+    };
 
     const detailsData = [
         {
             title: "Feels Like",
             icon: <TbCloudSearch />,
-            val: feels_like,
+            val: unit == 'metric' ? feels_like : handleCelsiusChange(feels_like),
             unit: unit == 'metric' ? "°C" : "°F"
         },
         {
             title: "Max Temp",
             icon: <HiArrowSmUp />,
-            val: temp_max,
+            val: unit == 'metric' ? temp_max : handleCelsiusChange(temp_max),
             unit: unit == 'metric' ? "°C" : "°F"
         },
         {
             title: "Min Temp",
             icon: <HiArrowSmDown />,
-            val: temp_min,
+            val: unit == 'metric' ? temp_min : handleCelsiusChange(temp_min),
             unit: unit == 'metric' ? "°C" : "°F"
         },
         {
             title: "Pressure",
             icon: <MdCompress />,
             val: pressure,
-            unit: unit == 'metric' ? "pascal" : "psi"
+            unit: "pascal"
         },
         {
             title: "Humidity",
@@ -94,10 +52,11 @@ const Details = ({ unit }) => {
             title: "Wind Speed",
             icon: <FiWind />,
             val: speed,
-            unit: unit == 'metric' ? "km/h" : "Mp/h"
+            unit: "km/h"
         }
 
     ];
+
     return (
 
 
