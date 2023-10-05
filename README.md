@@ -1,6 +1,6 @@
 # React Weather DashbOard
 
-<img src="https://user-images.githubusercontent.com/25284536/90274607-2535a000-de76-11ea-9d21-ab8c3e68b3a9.png" width="400"> <
+![](src/assets/UI-Look.png)
 
 Weather App built with React.
 [Live Demo](https://whether-dash-board.vercel.app)
